@@ -111,7 +111,8 @@ public class CharacterController_Light : Entity
 
 	public UnityEvent OnLandEvent;
 
-	
+	private bool _isOnHeavy = false;
+
 
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
@@ -135,7 +136,6 @@ public class CharacterController_Light : Entity
 		if(!_isRespawning) GetInputs();
 		if(_dash && _canDash) StartCoroutine(Dash());
 		_coyoteTimeCounter -= Time.deltaTime;
-		
 		if(_horizontalMove != 0 && _rb.velocity.y == 0)
 		{
 			if (!_audioSource.isPlaying)
@@ -199,7 +199,8 @@ public class CharacterController_Light : Entity
 			// Move the character by finding the target velocity
 			Vector2 targetVelocity = new Vector2(move * 10f, _rb.velocity.y);
 			// And then smoothing it out and applying it to the character
-			Vector2 parentVelocity = transform.parent == null ? Vector2.zero : _heavyRb.velocity;
+			//Vector2 parentVelocity = transform.parent == null ? Vector2.zero : _heavyRb.velocity;
+			Vector2 parentVelocity = _isOnHeavy ? new Vector2(_heavyRb.velocity.x, 0f) : Vector2.zero;
 			_rb.velocity = Vector2.SmoothDamp(_rb.velocity, targetVelocity + parentVelocity, ref _velocity, _movementSmoothing);
 
 			// Flip player if input is opposite of way sprite is facing
@@ -251,12 +252,12 @@ public class CharacterController_Light : Entity
 	{
 		// Switch the way the player is labelled as facing.
 		_facingRight = !_facingRight;
-		_sprite.flipX = _facingRight ? false : true;
+		//_sprite.flipX = _facingRight ? false : true;
 
 		// Multiply the player's x local scale by -1.
-		/*Vector3 theScale = transform.localScale;
+		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
-		transform.localScale = theScale;*/
+		transform.localScale = theScale;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
@@ -293,7 +294,8 @@ public class CharacterController_Light : Entity
             
             if(hitPos.normal.y > 0  && other.gameObject.CompareTag("Heavy"))
             {
-	            transform.SetParent(other.gameObject.transform);
+	            //transform.SetParent(other.gameObject.transform);
+	            _isOnHeavy = true;
 	            _grounded = true;
             }
 			
@@ -322,6 +324,7 @@ public class CharacterController_Light : Entity
 		if(other.gameObject.CompareTag("Heavy"))
 		{
 			transform.parent = null;
+			_isOnHeavy = false;
 		}
 		
 		/*if(other.gameObject.CompareTag("FallingPlatform"))
