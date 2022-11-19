@@ -81,6 +81,8 @@ public class CharacterController_Heavy : Entity
 	[SerializeField]
 	private GameObject _characterSprite;
 
+	private SpriteRenderer _sprite;
+
 	[Header("Particles")]
 	[SerializeField]
 	private ParticleSystem _deathParticles;
@@ -102,6 +104,7 @@ public class CharacterController_Heavy : Entity
 
 	private void Awake()
 	{
+		_sprite = GetComponent<SpriteRenderer>();
 		_coyoteTimeCounter = _coyoteTime;
         _checkpoint = transform.position;
 		_audioSource = GetComponent<AudioSource>();
@@ -227,11 +230,12 @@ public class CharacterController_Heavy : Entity
 	{
 		// Switch the way the player is labelled as facing.
 		_facingRight = !_facingRight;
+		_sprite.flipX = _facingRight ? false : true;
 
 		// Multiply the player's x local scale by -1.
-		Vector3 theScale = transform.localScale;
+		/*Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
-		transform.localScale = theScale;
+		transform.localScale = theScale;*/
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)

@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!50 &273121436 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8565991686396576071, guid: f1f377b97feb7524998cf473449358b4, type: 3}
+  m_PrefabInstance: {fileID: 8565991685237806704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &420530251
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +330,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6401720615269296480, guid: 82f21263acf61c84681cfdaabc3182e9, type: 3}
+      propertyPath: _heavyRb
+      value: 
+      objectReference: {fileID: 273121436}
     - target: {fileID: 6401720615269296481, guid: 82f21263acf61c84681cfdaabc3182e9, type: 3}
       propertyPath: m_Name
       value: PlayerLight
