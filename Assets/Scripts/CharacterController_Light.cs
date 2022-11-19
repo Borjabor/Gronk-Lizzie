@@ -33,11 +33,7 @@ public class CharacterController_Light : Entity
     private int _numberOfFlashes;
     [SerializeField] 
     private SpriteRenderer _bodyRenderer;
-	[SerializeField] 
-    private SpriteRenderer _fishRenderer;
-	[SerializeField] 
-    private SpriteRenderer _shrimpRenderer;
-	private Animator _squashAndStretch;
+	private Animator _animator;
 
 	//Audio
 	private AudioSource _audioSource;
@@ -50,18 +46,7 @@ public class CharacterController_Light : Entity
 	[SerializeField]
     private AudioClip _dashAudio;
 	[SerializeField]
-	private AudioClip _climbAudio;
-	[SerializeField]
 	private AudioClip _deathAudio;
-
-	//Buff UI Icons
-
-	[SerializeField]
-	private GameObject _noriIcon;
-	[SerializeField]
-	private GameObject _crabIcon;
-	[SerializeField]
-	private GameObject _fishIcon;
 
 
     [SerializeField]
@@ -88,8 +73,6 @@ public class CharacterController_Light : Entity
 	private float _jumpBufferTime = 0.2f;
 	private float _jumpBufferCounter;
 	private bool _jump = false;
-    private bool _hasDoubleJump = false;
-    private bool _hasJumpedTwice = false;
 
     [Header("Dash")]
 	[SerializeField]
@@ -99,34 +82,8 @@ public class CharacterController_Light : Entity
     [SerializeField]
 	private float _dashingCooldown = 1f;
     private bool _dash;
-    private bool _hasDash = false;
     private bool _canDash = true;
     private bool _isDashing;
-
-    [Header("WallJump")]
-    [SerializeField] 
-    private float _wallSlideSpeed;
-    [SerializeField] 
-    private Transform _frontCheck;
-    private bool _hasWallJump = false;
-    private bool _isTouchingFront;
-    private bool _isWallSliding;
-    private bool _wallJumping;
-    [SerializeField] 
-    private float _xWallForce;
-    [SerializeField] 
-    private float _yWallForce;
-    [SerializeField] 
-    private float _wallJumpTime;
-    [SerializeField]
-    private int _maxWallJumps = 3;
-    private int _wallJumpsPerformed = 0;
-    
-    [Header("NoriDefense")] 
-    [SerializeField]
-    private int _noriCooldown = 5;
-    private bool _isNoriOnCooldown;
-    private bool _hasDefense = false;
     
     private bool _onFallingPlatform;
     private bool _onEdge;
@@ -134,16 +91,6 @@ public class CharacterController_Light : Entity
     [Header("Sprites")]
 	[SerializeField]
 	private GameObject _characterSprite;
-	[SerializeField]
-	private GameObject _basicSprite;
-	[SerializeField]
-	private GameObject _shrimpSprite;
-	[SerializeField]
-	private GameObject _fishSprite;
-	[SerializeField]
-	private GameObject _crabSprite;
-	[SerializeField]
-	private GameObject _noriSprite;
 
 	[Header("Particles")]
 	[SerializeField]
@@ -169,12 +116,9 @@ public class CharacterController_Light : Entity
 	private void Awake()
 	{
 		_coyoteTimeCounter = _coyoteTime;
-        _shrimpSprite.SetActive(false);
-        _fishSprite.SetActive(false);
-        _crabSprite.SetActive(false);
         _checkpoint = transform.position;
 		_audioSource = GetComponent<AudioSource>();
-		_squashAndStretch = GetComponentInChildren<Animator>();
+		//_animator = GetComponentInChildren<Animator>();
 
         if (OnLandEvent == null) OnLandEvent = new UnityEvent();
 
@@ -182,12 +126,13 @@ public class CharacterController_Light : Entity
 
 	void Update()
 	{
+		Debug.Log($"Light - {_horizontalMove}");
 		if (_isDashing) return;
 		GetInputs();
-		if(_dash && _canDash && _hasDash) StartCoroutine(Dash());
+		if(_dash && _canDash) StartCoroutine(Dash());
 		_coyoteTimeCounter -= Time.deltaTime;
 		
-		if(_horizontalMove != 0 && _rb.velocity.y == 0 && !_isTouchingFront)
+		if(_horizontalMove != 0 && _rb.velocity.y == 0)
 		{
 			if (!_audioSource.isPlaying)
 			{
@@ -195,7 +140,7 @@ public class CharacterController_Light : Entity
 			}
 		}
 
-		if (_rb.velocity.y > 0f && Input.GetButtonUp("Jump"))
+		if (_rb.velocity.y > 0f && Input.GetKeyUp(KeyCode.UpArrow))
 		{
 			_rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * _lowJumpMultiplier);
 			_coyoteTimeCounter = 0f;
@@ -210,63 +155,18 @@ public class CharacterController_Light : Entity
 		if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f) _jump = true;
 
         if(!_isRespawning) Move(_horizontalMove * Time.fixedDeltaTime, _jump);
-        if (_horizontalMove != 0 && _rb.velocity.y == 0 && !_isTouchingFront)
+        if (_horizontalMove != 0 && _rb.velocity.y == 0)
         {
-	        _moveParticles.Play();
-	        _squashAndStretch.SetBool("Walking", true);
+	        //_moveParticles.Play();
+	        //_animator.SetBool("Walking", true);
         }
         else
         {
-	        _squashAndStretch.SetBool("Walking", false);
-        }
-
-        if (_hasDoubleJump)
-        {
-            if (_grounded || _onFallingPlatform || _onEdge) _hasJumpedTwice = false;
-            if (_grounded || _hasJumpedTwice)
-            {
-                _onFallingPlatform = false;
-                _onEdge = false;
-            }
+	        //_animator.SetBool("Walking", false);
         }
 
         bool wasGrounded = _grounded;
 		_grounded = false;
-		
-		_isTouchingFront = Physics2D.OverlapCircle(_frontCheck.position, _groundedRadius, _whatIsGround);
-
-		if (_hasWallJump)
-		{
-			
-			if (_isTouchingFront && !_grounded && _horizontalMove != 0)
-			{
-				_isWallSliding = true;
-			}
-			else
-			{
-				_isWallSliding = false;
-			}
-
-			if (_isWallSliding)
-			{
-				_rb.velocity = new Vector2(_rb.velocity.x,
-					Mathf.Clamp(_rb.velocity.y, -_wallSlideSpeed, float.MaxValue));
-			}
-
-			if (_jump && _isWallSliding && _wallJumpsPerformed < _maxWallJumps)
-			{
-				_wallJumping = true;
-				Invoke("SetWallJumpingToFalse", _wallJumpTime);
-			}
-
-			if (_wallJumping)
-			{
-				_rb.velocity = new Vector2(-_horizontalMove/2, _jumpForce);
-				_wallJumping = false;
-				if (_hasDoubleJump) _hasJumpedTwice = false;
-				_wallJumpsPerformed++;
-			}
-		}
 		
 		_jump = false;
 		_dash = false;
@@ -279,8 +179,7 @@ public class CharacterController_Light : Entity
 			{
 				_grounded = true;
 				_coyoteTimeCounter = _coyoteTime;
-				_squashAndStretch.SetTrigger("Idle");
-				_wallJumpsPerformed = 0;
+				//_animator.SetTrigger("Idle");
 				if (!wasGrounded) OnLandEvent.Invoke();
 			}
 		}
@@ -312,22 +211,15 @@ public class CharacterController_Light : Entity
 		if (jump)
 		{
 			if( _coyoteTimeCounter > 0f && _jumpBufferCounter > 0f){
-				_squashAndStretch.SetTrigger("Jump");
+				//_animator.SetTrigger("Jump");
 				_audioSource.PlayOneShot(_jumpAudio);
 				_jumpBufferCounter = 0f;
 				_rb.velocity = Vector2.up * _jumpForce;
 				_grounded = false;
 				_onFallingPlatform = false;
 				_onEdge = false;
-                _moveParticles.Stop();
-                _jumpParticles.Play();
-            }
-			else if(!_hasJumpedTwice && _hasDoubleJump && !_grounded && !_onFallingPlatform && !_onEdge){
-				_squashAndStretch.SetTrigger("Jump");
-				_audioSource.PlayOneShot(_jumpAudio);
-                _hasJumpedTwice = true;
-				_rb.velocity = Vector2.up * _jumpForce;
-				_jumpParticles.Play();
+                //_moveParticles.Stop();
+                //_jumpParticles.Play();
             }
 			
 		}
@@ -337,8 +229,8 @@ public class CharacterController_Light : Entity
 
 	private void GetInputs()
 	{		
-        _horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
-        if (Input.GetButtonDown("Jump"))
+        _horizontalMove = Input.GetAxisRaw("Horizontal2") * _moveSpeed;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
 	        _jump = true;
 	        _jumpBufferCounter = _jumpBufferTime;
@@ -347,7 +239,7 @@ public class CharacterController_Light : Entity
         {
 	        _jumpBufferCounter -= Time.deltaTime;
         }
-		if(Input.GetKey(KeyCode.LeftShift) && !_isRespawning) _dash = true;
+		if(Input.GetKey(KeyCode.RightShift) && !_isRespawning) _dash = true;
     }
 
 	private void Flip()
@@ -368,41 +260,6 @@ public class CharacterController_Light : Entity
 		{
 			_audioSource.PlayOneShot(_checkpointAudio);
 			_checkpoint = other.transform.position;
-		}
-		
-		if(other.gameObject.CompareTag("ShrimpBuff"))
-		{
-            _hasDash = true;
-			_audioSource.PlayOneShot(_buffPickupAudio);
-			_noriIcon.SetActive(true);
-            Destroy(other.gameObject);
-            _noriSprite.SetActive(true);
-        }
-
-		if(other.gameObject.CompareTag("DoubleJump"))
-		{
-            _hasDoubleJump = true;
-			_audioSource.PlayOneShot(_buffPickupAudio);
-			_fishIcon.SetActive(true);
-			Destroy(other.gameObject);
-			_fishSprite.SetActive(true);
-        }
-		
-		/*if(other.gameObject.CompareTag("NoriDefense"))
-		{
-			_hasDefense = true;
-			_audioSource.PlayOneShot(_buffPickupAudio);
-			Destroy(other.gameObject);
-			_noriSprite.SetActive(true);
-		}*/
-
-		if (other.gameObject.CompareTag("WallJump"))
-		{
-			_hasWallJump = true;
-			_audioSource.PlayOneShot(_buffPickupAudio);
-			_crabIcon.SetActive(true);
-			Destroy(other.gameObject);
-			_crabSprite.SetActive(true);
 		}
 		
 		if (other.gameObject.CompareTag("Collectible"))
@@ -428,7 +285,7 @@ public class CharacterController_Light : Entity
                 _coyoteTimeCounter = _coyoteTime;
             }
 			
-			if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
+			/*if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
 			{
                 _onFallingPlatform = true;
                 _onEdge = false;
@@ -444,13 +301,13 @@ public class CharacterController_Light : Entity
 				_onEdge = true;
 				_onFallingPlatform = false;
 				_coyoteTimeCounter = _coyoteTime;
-			}
+			}*/
         }
 	}
 
 	private void OnCollisionExit2D(Collision2D other)
 	{
-		if(other.gameObject.CompareTag("FallingPlatform"))
+		/*if(other.gameObject.CompareTag("FallingPlatform"))
 		{
 			_onFallingPlatform = false;
 		}
@@ -458,12 +315,12 @@ public class CharacterController_Light : Entity
 		if(other.gameObject.CompareTag("Edge"))
 		{
 			_onEdge = false;
-		}
+		}*/
 	}
 
 	private void OnCollisionEnter2D(Collision2D other)
 	{
-		if(other.gameObject.CompareTag("Spikes") && !_isRespawning)
+		if(other.gameObject.CompareTag("Hazard") && !_isRespawning)
 		{
             //_rb.AddForce(new Vector2(-transform.localScale.x * _knockbackX, _knockbackY), ForceMode2D.Impulse);
             StartCoroutine(Respawn());
@@ -482,7 +339,7 @@ public class CharacterController_Light : Entity
                 _coyoteTimeCounter = _coyoteTime;
             }
 			
-			if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
+			/*if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
 			{
                 _onFallingPlatform = true;
                 _onEdge = false;
@@ -494,14 +351,9 @@ public class CharacterController_Light : Entity
 				_onEdge = true;
 				_onFallingPlatform = false;
 				_coyoteTimeCounter = _coyoteTime;
-			}
+			}*/
         }
 		
-	}
-
-	private void SetWallJumpingToFalse()
-	{
-		_wallJumping = false;
 	}
 
 	private IEnumerator Dash()
@@ -512,7 +364,7 @@ public class CharacterController_Light : Entity
         _rb.gravityScale = 0f;
         _rb.velocity = new Vector2(transform.localScale.x * _dashAmount, 0f);
         _dashTrail.emitting = true;
-        _squashAndStretch.SetTrigger("Dash");
+        //_animator.SetTrigger("Dash");
 		_audioSource.PlayOneShot(_dashAudio);
         yield return new WaitForSeconds(_dashingTime);
 		_dashTrail.emitting = false;
@@ -554,24 +406,11 @@ public class CharacterController_Light : Entity
 		for (int i = 0; i < _numberOfFlashes; i++)
 		{
 			_bodyRenderer.color = new Color(0.8f, 0.2f, 0.2f, 0.5f);
-			_fishRenderer.color = new Color(0.8f, 0.2f, 0.2f, 0.5f);
-			_shrimpRenderer.color = new Color(0.8f, 0.2f, 0.2f, 0.5f);
 			yield return new WaitForSeconds(_iFramesDuration / (_numberOfFlashes * 2));
 			_bodyRenderer.color = Color.white;
-			_fishRenderer.color = Color.white;
-			_shrimpRenderer.color = Color.white;
 			yield return new WaitForSeconds(_iFramesDuration / (_numberOfFlashes * 2));
 		}
 		Physics2D.IgnoreLayerCollision(0, 6, false);
-	}
-
-	private IEnumerator ShieldsDown()
-	{
-		_isNoriOnCooldown = true;
-		_noriSprite.SetActive(false);
-		yield return new WaitForSeconds(_noriCooldown);
-		_noriSprite.SetActive(true);
-		_isNoriOnCooldown = false;
 	}
 
 }
