@@ -126,9 +126,8 @@ public class CharacterController_Light : Entity
 
 	void Update()
 	{
-		Debug.Log($"Light - {_horizontalMove}");
 		if (_isDashing) return;
-		GetInputs();
+		if(!_isRespawning) GetInputs();
 		if(_dash && _canDash) StartCoroutine(Dash());
 		_coyoteTimeCounter -= Time.deltaTime;
 		
@@ -139,13 +138,6 @@ public class CharacterController_Light : Entity
 				_audioSource.Play();
 			}
 		}
-
-		if (_rb.velocity.y > 0f && Input.GetKeyUp(KeyCode.UpArrow))
-		{
-			_rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * _lowJumpMultiplier);
-			_coyoteTimeCounter = 0f;
-		}
-
 	}
 
 	private void FixedUpdate()
@@ -154,7 +146,14 @@ public class CharacterController_Light : Entity
 		if(_grounded) _lastGrounded = transform.position;
 		if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f) _jump = true;
 
-        if(!_isRespawning) Move(_horizontalMove * Time.fixedDeltaTime, _jump);
+        Move(_horizontalMove * Time.fixedDeltaTime, _jump);
+        
+        if (_rb.velocity.y > 0f && Input.GetKeyUp(KeyCode.UpArrow))
+        {
+	        _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * _lowJumpMultiplier);
+	        _coyoteTimeCounter = 0f;
+        }
+        
         if (_horizontalMove != 0 && _rb.velocity.y == 0)
         {
 	        //_moveParticles.Play();

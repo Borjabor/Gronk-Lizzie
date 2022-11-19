@@ -113,8 +113,7 @@ public class CharacterController_Heavy : Entity
 
 	void Update()
 	{
-		Debug.Log($"Heavy - {_horizontalMove}");
-		GetInputs();
+		if(!_isRespawning) GetInputs();
 		_coyoteTimeCounter -= Time.deltaTime;
 		
 		if(_horizontalMove != 0 && _rb.velocity.y == 0)
@@ -124,13 +123,6 @@ public class CharacterController_Heavy : Entity
 				_audioSource.Play();
 			}
 		}
-
-		if (_rb.velocity.y > 0f && Input.GetKeyUp(KeyCode.W))
-		{
-			_rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * _lowJumpMultiplier);
-			_coyoteTimeCounter = 0f;
-		}
-
 	}
 
 	private void FixedUpdate()
@@ -138,7 +130,14 @@ public class CharacterController_Heavy : Entity
 		if(_grounded) _lastGrounded = transform.position;
 		if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f) _jump = true;
 
-        if(!_isRespawning) Move(_horizontalMove * Time.fixedDeltaTime, _jump);
+        Move(_horizontalMove * Time.fixedDeltaTime, _jump);
+        
+        if (_rb.velocity.y > 0f && Input.GetKeyUp(KeyCode.W))
+        {
+	        _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * _lowJumpMultiplier);
+	        _coyoteTimeCounter = 0f;
+        }
+        
         if (_horizontalMove != 0 && _rb.velocity.y == 0)
         {
 	        //_moveParticles.Play();
