@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.aarthificial.pixelgraphics": {
+      "version": "file:C:/Users/Educa/Downloads/pixelgraphics-master/pixelgraphics-master",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "10.4.0"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "7.0.7",
       "depth": 1,
