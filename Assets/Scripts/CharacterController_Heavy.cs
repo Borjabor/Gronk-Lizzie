@@ -230,12 +230,12 @@ public class CharacterController_Heavy : Entity
 	{
 		// Switch the way the player is labelled as facing.
 		_facingRight = !_facingRight;
-		_sprite.flipX = _facingRight ? false : true;
+		//_sprite.flipX = _facingRight ? false : true;
 
 		// Multiply the player's x local scale by -1.
-		/*Vector3 theScale = transform.localScale;
+		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
-		transform.localScale = theScale;*/
+		transform.localScale = theScale;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
