@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class CharacterController_Light : Entity
 {
-	
+	[SerializeField] 
+	private Rigidbody2D _heavyRb;
+
 	[SerializeField] 
 	private LiveCount _liveCount;
 
@@ -194,7 +196,8 @@ public class CharacterController_Light : Entity
 			// Move the character by finding the target velocity
 			Vector2 targetVelocity = new Vector2(move * 10f, _rb.velocity.y);
 			// And then smoothing it out and applying it to the character
-			_rb.velocity = Vector2.SmoothDamp(_rb.velocity, targetVelocity, ref _velocity, _movementSmoothing);
+			Vector2 parentVelocity = transform.parent == null ? Vector2.zero : _heavyRb.velocity;
+			_rb.velocity = Vector2.SmoothDamp(_rb.velocity, targetVelocity + parentVelocity, ref _velocity, _movementSmoothing);
 
 			// Flip player if input is opposite of way sprite is facing
 			if (move > 0 && !_facingRight)
@@ -241,7 +244,7 @@ public class CharacterController_Light : Entity
 		if(Input.GetKey(KeyCode.RightShift) && !_isRespawning) _dash = true;
     }
 
-	private void Flip()
+	public void Flip()
 	{
 		// Switch the way the player is labelled as facing.
 		_facingRight = !_facingRight;
@@ -283,6 +286,12 @@ public class CharacterController_Light : Entity
                 _rb.velocity = Vector2.up * (_jumpForce/2);
                 _coyoteTimeCounter = _coyoteTime;
             }
+            
+            if(hitPos.normal.y > 0  && other.gameObject.CompareTag("Heavy"))
+            {
+	            transform.SetParent(other.gameObject.transform);
+	            _grounded = true;
+            }
 			
 			/*if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
 			{
@@ -306,6 +315,11 @@ public class CharacterController_Light : Entity
 
 	private void OnCollisionExit2D(Collision2D other)
 	{
+		if(other.gameObject.CompareTag("Heavy"))
+		{
+			transform.parent = null;
+		}
+		
 		/*if(other.gameObject.CompareTag("FallingPlatform"))
 		{
 			_onFallingPlatform = false;

@@ -227,6 +227,10 @@ public class CharacterController_Heavy : Entity
 	{
 		// Switch the way the player is labelled as facing.
 		_facingRight = !_facingRight;
+		if (transform.childCount > 1)
+		{
+			CharacterController_Light.Flip();
+		}
 
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
