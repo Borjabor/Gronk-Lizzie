@@ -166,7 +166,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &8565991686396576070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,10 +184,10 @@ MonoBehaviour:
   _damageValue: 0
   _liveCount: {fileID: 0}
   _movementSmoothing: 0.05
-  _airControl: 0
+  _airControl: 1
   _whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _groundCheck: {fileID: 3242033231678030204}
   _iFramesDuration: 0
   _numberOfFlashes: 0
@@ -197,10 +197,10 @@ MonoBehaviour:
   _jumpAudio: {fileID: 0}
   _landAudio: {fileID: 0}
   _deathAudio: {fileID: 0}
-  _moveSpeed: 60
+  _moveSpeed: 30
   _knockbackX: 25
   _knockbackY: 5
-  _jumpForce: 30
+  _jumpForce: 8
   _fallMultiplier: 2.5
   _coyoteTime: 0.2
   _jumpBufferTime: 0.2
