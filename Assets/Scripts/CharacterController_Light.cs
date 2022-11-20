@@ -269,12 +269,12 @@ public class CharacterController_Light : Entity
 			_checkpoint = other.transform.position;
 		}
 		
-		if (other.gameObject.CompareTag("Collectible"))
+		/*if (other.gameObject.CompareTag("Collectible"))
 		{
 			Destroy(other.gameObject);
 			_audioSource.PlayOneShot(_buffPickupAudio);
 			CollectiblesCounter.TotalPoints++;
-		}
+		}*/
 		
 		if(other.gameObject.CompareTag("Hazard") && !_isRespawning)
 		{

@@ -74,7 +74,7 @@ public class CharacterController_Heavy : Entity
 	private float _jumpBufferCounter;
 	private bool _jump = false;
 	[Tooltip("Drag Boxes Parent here; Duplicate and spread boxes inside the parent")]
-	[SerializeField] private Bounceable _poundBounceObjects;
+	[SerializeField] private Bounceable[] _poundBounceObjects;
 	
     
     private bool _onFallingPlatform;
@@ -251,12 +251,12 @@ public class CharacterController_Heavy : Entity
 			_checkpoint = other.transform.position;
 		}
 		
-		if (other.gameObject.CompareTag("Collectible"))
+		/*if (other.gameObject.CompareTag("Collectible"))
 		{
 			Destroy(other.gameObject);
 			_audioSource.PlayOneShot(_buffPickupAudio);
 			CollectiblesCounter.TotalPoints++;
-		}
+		}*/
 	}
 
 	private void OnCollisionStay2D(Collision2D other)
@@ -320,7 +320,11 @@ public class CharacterController_Heavy : Entity
 			
 			if(hitPos.normal.y > 0  && other.gameObject.layer == 6)
 			{
-				_poundBounceObjects.Bounce();
+				foreach (var box in _poundBounceObjects)
+				{
+					box.Bounce();
+				}
+				
 			}
 			
 			/*if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
