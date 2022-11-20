@@ -117,53 +117,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Background_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 575
-        height: 253
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2745d348af24dfa4aa053f71b7b0ebfb
-      internalID: -1972289175
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Background_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 262
-        width: 576
-        height: 266
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cf98ceb92bd345a4ca73ae8c1a885e25
-      internalID: 579760099
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Background_2
       rect:
         serializedVersion: 2
-        x: 577
-        y: 262
+        x: 671
+        y: 473
         width: 576
         height: 250
       alignment: 0
@@ -183,8 +141,8 @@ TextureImporter:
       name: Background_3
       rect:
         serializedVersion: 2
-        x: 576
-        y: 528
+        x: 678
+        y: 766
         width: 576
         height: 266
       alignment: 0
