@@ -61,7 +61,7 @@ public class CharacterController_Heavy : Entity
 
     [Header("Jump")]
 	[SerializeField]
-	private float _jumpForce = 30f;						// Amount of force added when the player jumps.
+	private float _jumpForce = 30f;	// Amount of force added when the player jumps.
 	[SerializeField] 
 	private float _fallMultiplier = 2.5f; //not in use
 	//[SerializeField] 
@@ -73,6 +73,9 @@ public class CharacterController_Heavy : Entity
 	private float _jumpBufferTime = 0.2f;
 	private float _jumpBufferCounter;
 	private bool _jump = false;
+	[Tooltip("Drag Boxes Parent here; Duplicate and spread boxes inside the parent")]
+	[SerializeField] private Bounceable[] _poundBounceObjects;
+	
     
     private bool _onFallingPlatform;
     private bool _onEdge;
@@ -97,6 +100,7 @@ public class CharacterController_Heavy : Entity
 	public UnityEvent OnLandEvent;
 
 	
+
 
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
@@ -150,7 +154,7 @@ public class CharacterController_Heavy : Entity
         {
 	        //_animator.SetBool("Walking", false);
         }
-
+        
         bool wasGrounded = _grounded;
 		_grounded = false;
 		
@@ -247,12 +251,12 @@ public class CharacterController_Heavy : Entity
 			_checkpoint = other.transform.position;
 		}
 		
-		if (other.gameObject.CompareTag("Collectible"))
+		/*if (other.gameObject.CompareTag("Collectible"))
 		{
 			Destroy(other.gameObject);
 			_audioSource.PlayOneShot(_buffPickupAudio);
 			CollectiblesCounter.TotalPoints++;
-		}
+		}*/
 	}
 
 	private void OnCollisionStay2D(Collision2D other)
@@ -313,6 +317,15 @@ public class CharacterController_Heavy : Entity
                 _rb.velocity = Vector2.up * (_jumpForce/2);
                 _coyoteTimeCounter = _coyoteTime;
             }
+			
+			if(hitPos.normal.y > 0  && other.gameObject.layer == 6)
+			{
+				foreach (var box in _poundBounceObjects)
+				{
+					box.Bounce();
+				}
+				
+			}
 			
 			/*if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
 			{
