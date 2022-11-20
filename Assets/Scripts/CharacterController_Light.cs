@@ -275,6 +275,12 @@ public class CharacterController_Light : Entity
 			_audioSource.PlayOneShot(_buffPickupAudio);
 			CollectiblesCounter.TotalPoints++;
 		}
+		
+		if(other.gameObject.CompareTag("Hazard") && !_isRespawning)
+		{
+			//_rb.AddForce(new Vector2(-transform.localScale.x * _knockbackX, _knockbackY), ForceMode2D.Impulse);
+			StartCoroutine(Respawn());
+		}
 	}
 
 	private void OnCollisionStay2D(Collision2D other)
