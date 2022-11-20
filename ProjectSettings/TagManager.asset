@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Hazard
   - Heavy
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
