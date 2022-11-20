@@ -6,15 +6,16 @@ TagManager:
   tags:
   - Enemy
   - Hazard
+  - Heavy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Big Guy
   - Water
   - UI
   - Ground
-  - 
+  - Foliage
   - 
   - 
   - 
