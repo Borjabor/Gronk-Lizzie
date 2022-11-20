@@ -6,15 +6,18 @@ TagManager:
   tags:
   - Enemy
   - Hazard
+  - Heavy
+  - Checkpoint
+  - Collectibles
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Big Guy
   - Water
   - UI
   - Ground
-  - 
+  - Foliage
   - 
   - 
   - 
@@ -40,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2659009297
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
