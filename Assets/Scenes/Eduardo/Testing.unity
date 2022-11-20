@@ -825,6 +825,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerLight
       objectReference: {fileID: 0}
+    - target: {fileID: 6401720615269296482, guid: 82f21263acf61c84681cfdaabc3182e9, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: b18062e2e988b524691dd28b905790a6, type: 2}
     - target: {fileID: 6401720615269296484, guid: 82f21263acf61c84681cfdaabc3182e9, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -997,6 +1001,10 @@ PrefabInstance:
       propertyPath: _characterSprite
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8565991686396576071, guid: f1f377b97feb7524998cf473449358b4, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: b18062e2e988b524691dd28b905790a6, type: 2}
     - target: {fileID: 8565991686396576074, guid: f1f377b97feb7524998cf473449358b4, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -20246,7 +20254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090864127}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.56, y: 1.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21103,7 +21111,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc53f3563926ddd4ba4982c6580bfce2, type: 2}
+  - {fileID: 2100000, guid: 2c3e7ab00d21ca14eb2bb51ab6b49a7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22589,7 +22597,6 @@ GameObject:
   - component: {fileID: 2005887882}
   - component: {fileID: 2005887887}
   - component: {fileID: 2005887888}
-  - component: {fileID: 2005887889}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -22773,33 +22780,6 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!114 &2005887889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2005887881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d7460f1d3ac25243b1b9fecf3405b59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings:
-    pixelsPerUnit: 24
-    renderingLayerMask:
-      mask: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 128
-    textureScale: 0.5
-    preview: 0
-  simulation:
-    stiffness: 70
-    damping: 3
-    blurStrength: 0.5
-    maxDeltaTime: 0.034
-  blitShader: {fileID: 4800000, guid: f34315e2ae49499e9bad3c7cee74f676, type: 3}
 --- !u!1001 &2107209003
 PrefabInstance:
   m_ObjectHideFlags: 0
