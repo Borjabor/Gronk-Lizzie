@@ -49,3 +49,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Distortion Effect
+    uniqueID: 2304373745
+    locked: 0
