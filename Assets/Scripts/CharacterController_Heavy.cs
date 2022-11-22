@@ -73,7 +73,7 @@ public class CharacterController_Heavy : Entity
 	private float _jumpBufferTime = 0.2f;
 	private float _jumpBufferCounter;
 	private bool _jump = false;
-	[Tooltip("Drag Boxes Parent here; Duplicate and spread boxes inside the parent")]
+	[Tooltip("Drag Boxes here")]
 	[SerializeField] private Bounceable[] _poundBounceObjects;
 	
     
