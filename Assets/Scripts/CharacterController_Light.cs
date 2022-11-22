@@ -35,7 +35,7 @@ public class CharacterController_Light : Entity
     private int _numberOfFlashes;
     [SerializeField] 
     private SpriteRenderer _bodyRenderer;
-	private Animator _animator;
+	public Animator _animator;
 
 	//Audio
 	private AudioSource _audioSource;
@@ -124,7 +124,7 @@ public class CharacterController_Light : Entity
 		_coyoteTimeCounter = _coyoteTime;
         _checkpoint = transform.position;
 		_audioSource = GetComponent<AudioSource>();
-		//_animator = GetComponentInChildren<Animator>();
+		_animator = GetComponentInChildren<Animator>();
 
         if (OnLandEvent == null) OnLandEvent = new UnityEvent();
 
@@ -162,11 +162,11 @@ public class CharacterController_Light : Entity
         if (_horizontalMove != 0 && _rb.velocity.y == 0)
         {
 	        //_moveParticles.Play();
-	        //_animator.SetBool("Walking", true);
+	        _animator.SetBool("Walking", true);
         }
         else
         {
-	        //_animator.SetBool("Walking", false);
+	        _animator.SetBool("Walking", false);
         }
 
         bool wasGrounded = _grounded;
