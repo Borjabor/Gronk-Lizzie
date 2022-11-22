@@ -403,21 +403,12 @@ public class CharacterController_Light : Entity
 	private IEnumerator Respawn()
 	{
 		_isRespawning = true;
-		_liveCount.LoseLife();
 		_rb.velocity = Vector2.zero;
 		_audioSource.PlayOneShot(_deathAudio);
 		_characterSprite.SetActive(false);
 		_deathParticles.Play();
 		yield return new WaitForSeconds(1.5f);
-		if(_liveCount._remainingLives <= 0)
-		{
-			_liveCount._remainingLives = 5;
-			transform.position = _checkpoint;
-		}
-		else
-		{
-			transform.position = _lastGrounded;
-		}
+		transform.position = _checkpoint;
 		_characterSprite.SetActive(true);
 		_isRespawning = false;
 		
