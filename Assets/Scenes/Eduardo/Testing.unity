@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 213962468}
   - component: {fileID: 213962467}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Jumping Boxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1286,6 +1286,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6628957070852137467, guid: 82f21263acf61c84681cfdaabc3182e9, type: 3}
+      propertyPath: maxSpeed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7465344802056164189, guid: 82f21263acf61c84681cfdaabc3182e9, type: 3}
       propertyPath: m_Size.x
       value: 0.91
@@ -1507,6 +1511,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1422884208695375133, guid: f1f377b97feb7524998cf473449358b4, type: 3}
+      propertyPath: maxSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3242033231678030204, guid: f1f377b97feb7524998cf473449358b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.14

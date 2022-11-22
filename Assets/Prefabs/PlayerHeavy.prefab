@@ -132,7 +132,7 @@ MonoBehaviour:
   mode: 2
   rb: {fileID: 0}
   rb2D: {fileID: 8565991686396576071}
-  maxSpeed: 20
+  maxSpeed: 50
   remapping:
     serializedVersion: 2
     m_Curve:
@@ -181,7 +181,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4912730611178912169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.31, z: 0}
+  m_LocalPosition: {x: 0.14, y: -1.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,7 +301,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1027994120, guid: 44816af0a934de543ab6e03a19dc5372, type: 3}
+  m_Sprite: {fileID: 1481709618, guid: b10be4f0b62205b41bb00ce82501f779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -331,7 +331,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: b18062e2e988b524691dd28b905790a6, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8565991686396576070
 MonoBehaviour:
@@ -371,7 +371,6 @@ MonoBehaviour:
   _coyoteTime: 0.2
   _jumpBufferTime: 0.2
   _poundBounceObjects:
-  - {fileID: 0}
   - {fileID: 0}
   _characterSprite: {fileID: 0}
   _deathParticles: {fileID: 0}
@@ -489,18 +488,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.06404042}
+  m_Offset: {x: -0.15, y: 0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.6875, y: 2.5625}
+    oldSize: {x: 2.5, y: 2.625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.53, y: 2.451919}
+  m_Size: {x: 2.18, y: 2.56}
   m_EdgeRadius: 0
 --- !u!114 &6971364605286455290
 MonoBehaviour:

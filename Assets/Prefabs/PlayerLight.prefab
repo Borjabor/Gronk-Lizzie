@@ -155,7 +155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126950790718445474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.345, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -188,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3411529191357569700}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.765409, y: -0.24861383, z: 1.2754943}
+  m_LocalPosition: {x: -0.619, y: -0.069, z: 1.2754943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -339,8 +339,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4808631435202198939}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.148, y: -0.208, z: 0}
-  m_LocalScale: {x: 1.378125, y: 0.6784278, z: 1}
+  m_LocalPosition: {x: -0.0349, y: -0.05, z: 0}
+  m_LocalScale: {x: 1.1712447, y: 0.6784278, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6401720615269296484}
@@ -414,7 +414,7 @@ MonoBehaviour:
   mode: 2
   rb: {fileID: 0}
   rb2D: {fileID: 6401720615269296482}
-  maxSpeed: 50
+  maxSpeed: 30
   remapping:
     serializedVersion: 2
     m_Curve:
@@ -520,7 +520,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -742202392, guid: 44816af0a934de543ab6e03a19dc5372, type: 3}
+  m_Sprite: {fileID: 1714678699, guid: b10be4f0b62205b41bb00ce82501f779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -550,7 +550,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: b18062e2e988b524691dd28b905790a6, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &6401720615269296480
 MonoBehaviour:
@@ -573,7 +573,7 @@ MonoBehaviour:
   _airControl: 1
   _whatIsGround:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 88
   _groundCheck: {fileID: 8440255181047906707}
   _iFramesDuration: 0
   _numberOfFlashes: 0
@@ -710,8 +710,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.21}
-  m_Size: {x: 0.97, y: 0.58}
+  m_Offset: {x: 0, y: -0.03}
+  m_Size: {x: 0.91, y: 0.58}
   m_Direction: 1
 --- !u!1 &9215072533988727559
 GameObject:
