@@ -404,9 +404,9 @@ public class CharacterController_Light : Entity
 	{
 		_isRespawning = true;
 		_rb.velocity = Vector2.zero;
-		_audioSource.PlayOneShot(_deathAudio);
+		//_audioSource.PlayOneShot(_deathAudio);
 		_characterSprite.SetActive(false);
-		_deathParticles.Play();
+		//_deathParticles.Play();
 		yield return new WaitForSeconds(1.5f);
 		transform.position = _checkpoint;
 		_characterSprite.SetActive(true);
