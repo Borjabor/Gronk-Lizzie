@@ -92,7 +92,7 @@ public class CharacterController_Light : Entity
 
     [Header("Sprites")]
 	[SerializeField]
-	private GameObject _characterSprite;
+	private GameObject _tailSprite;
 	
 	private SpriteRenderer _sprite;
 
@@ -111,7 +111,8 @@ public class CharacterController_Light : Entity
 
 	public UnityEvent OnLandEvent;
 
-	private bool _isOnHeavy = false;
+	[HideInInspector]
+	public static bool _isOnHeavy = false;
 
 
 	[System.Serializable]
@@ -151,7 +152,7 @@ public class CharacterController_Light : Entity
 		if(_grounded) _lastGrounded = transform.position;
 		if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f) _jump = true;
 
-        Move(_horizontalMove * Time.fixedDeltaTime, _jump);
+		if(!_isRespawning) Move(_horizontalMove * Time.fixedDeltaTime, _jump);
         
         if (_rb.velocity.y > 0f && Input.GetKeyUp(KeyCode.UpArrow))
         {
@@ -405,11 +406,13 @@ public class CharacterController_Light : Entity
 		_isRespawning = true;
 		_rb.velocity = Vector2.zero;
 		//_audioSource.PlayOneShot(_deathAudio);
-		_characterSprite.SetActive(false);
+		_sprite.enabled = false;
+		_tailSprite.SetActive(false);
 		//_deathParticles.Play();
 		yield return new WaitForSeconds(1.5f);
 		transform.position = _checkpoint;
-		_characterSprite.SetActive(true);
+		_sprite.enabled = true;
+		_tailSprite.SetActive(true);
 		_isRespawning = false;
 		
         
