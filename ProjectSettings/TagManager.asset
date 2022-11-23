@@ -10,6 +10,7 @@ TagManager:
   - Checkpoint
   - Collectibles
   - Objects
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

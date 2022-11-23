@@ -326,45 +326,31 @@ public class CharacterController_Light : Entity
         }
 	}
 
-	private void OnCollisionExit2D(Collision2D other)
-	{
-		if(other.gameObject.CompareTag("Heavy"))
-		{
-			transform.parent = null;
-			_isOnHeavy = false;
-		}
-		
-		/*if(other.gameObject.CompareTag("FallingPlatform"))
-		{
-			_onFallingPlatform = false;
-		}
-
-		if(other.gameObject.CompareTag("Edge"))
-		{
-			_onEdge = false;
-		}*/
-	}
-
 	private void OnCollisionEnter2D(Collision2D other)
 	{
 		if(other.gameObject.CompareTag("Hazard") && !_isRespawning)
 		{
-            //_rb.AddForce(new Vector2(-transform.localScale.x * _knockbackX, _knockbackY), ForceMode2D.Impulse);
-            StartCoroutine(Respawn());
-        }
+			//_rb.AddForce(new Vector2(-transform.localScale.x * _knockbackX, _knockbackY), ForceMode2D.Impulse);
+			StartCoroutine(Respawn());
+		}
 
 		foreach(ContactPoint2D hitPos in other.contacts)
 		{
-            if(hitPos.normal.y <= 0  && other.gameObject.CompareTag("Enemy"))
-            {
-	            Physics2D.IgnoreLayerCollision(0, 6, true);
-                StartCoroutine(Respawn());
-            }
+			if(hitPos.normal.y <= 0  && other.gameObject.CompareTag("Enemy"))
+			{
+				Physics2D.IgnoreLayerCollision(0, 6, true);
+				StartCoroutine(Respawn());
+			}
 			else if(hitPos.normal.y > 0  && other.gameObject.CompareTag("Enemy"))
-            {
-                _rb.velocity = Vector2.up * (_jumpForce/2);
-                _coyoteTimeCounter = _coyoteTime;
-            }
+			{
+				_rb.velocity = Vector2.up * (_jumpForce/2);
+				_coyoteTimeCounter = _coyoteTime;
+			}
+			
+			if(hitPos.normal.y > 0  && other.gameObject.CompareTag("MovingPlatform"))
+			{
+				transform.SetParent(other.gameObject.transform);
+			}
 			
 			/*if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
 			{
@@ -379,9 +365,33 @@ public class CharacterController_Light : Entity
 				_onFallingPlatform = false;
 				_coyoteTimeCounter = _coyoteTime;
 			}*/
-        }
+		}
 		
 	}
+	
+	private void OnCollisionExit2D(Collision2D other)
+	{
+		if(other.gameObject.CompareTag("Heavy"))
+		{
+			transform.parent = null;
+			_isOnHeavy = false;
+		}
+		if(other.gameObject.CompareTag("MovingPlatform"))
+		{
+			transform.SetParent(null);
+		}
+		
+		/*if(other.gameObject.CompareTag("FallingPlatform"))
+		{
+			_onFallingPlatform = false;
+		}
+
+		if(other.gameObject.CompareTag("Edge"))
+		{
+			_onEdge = false;
+		}*/
+	}
+
 
 	private IEnumerator Dash()
 	{
