@@ -28,7 +28,7 @@ public class WindEffector : MonoBehaviour
         if (hit.collider != null)
         {
             //_wind.enabled = false;
-            _collider.size = new Vector2(_collider.size.x, hit.point.y);
+            _collider.size = new Vector2(_collider.size.x, hit.point.y/_rayDistance);
             _collider.offset = new Vector2(_collider.offset.x, (1 - hit.point.y) / 2 * -1);
             //_collider.c
             Debug.Log($"{_collider.size}");
