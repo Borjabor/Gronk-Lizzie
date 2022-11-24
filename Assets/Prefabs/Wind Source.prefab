@@ -130,7 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5b281193c1db84285d88f59f3fb97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wind: {fileID: 4712990447333886677}
   _rayPoint: {fileID: 1316395215}
   _rayDistance: 0.2
   _layerIndex:
