@@ -1229,6 +1229,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Sprite_Sheet_53
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f8577c8c66796b4aac49c586fb1efe2
+      internalID: 25497728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1290,6 +1311,7 @@ TextureImporter:
       Sprite_Sheet_37: -1597615987
       Sprite_Sheet_23: 1635064859
       Sprite_Sheet_13: 2025522453
+      Sprite_Sheet_53: 25497728
       Sprite_Sheet_24: -792442686
       Sprite_Sheet_36: -1677331986
       Sprite_Sheet_3: -537379744
