@@ -32,19 +32,27 @@ public class Grab : MonoBehaviour
             {
                 //Debug.Log($"grab");
                 _grabbedObject = hit.collider.gameObject;
-                _grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
-                var grabbed = _grabbedObject.GetComponent<Collider2D>();
+                //_grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                
+                var grabbedRb = _grabbedObject.GetComponent<Rigidbody2D>();
+                var grabbedCol = _grabbedObject.GetComponent<Collider2D>();
+                _grabbedObject.GetComponent<Rigidbody2D>().gravityScale = 0;
                 _grabbedObject.transform.position = _grabPoint.position;
                 _grabbedObject.transform.SetParent(transform);
-                Physics2D.IgnoreCollision(_col, grabbed, true);
+                Physics2D.IgnoreCollision(_col, grabbedCol, true);
+                FixedJoint2D fj = transform.gameObject.AddComponent(typeof(FixedJoint2D)) as FixedJoint2D;
+                var rb = _grabbedObject.GetComponent<Rigidbody2D>();
+                fj.connectedBody = rb;
 
             }else if (Input.GetKeyUp(KeyCode.Space))
             {
-                _grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                //_grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                _grabbedObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                 var grabbed = _grabbedObject.GetComponent<Collider2D>();
                 _grabbedObject.transform.SetParent(null);
                 _grabbedObject = null;
                 Physics2D.IgnoreCollision(_col, grabbed, false);
+                Destroy(GetComponent<FixedJoint2D>());
             }
         }
     }
