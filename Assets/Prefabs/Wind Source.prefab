@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3921083810388996537}
   - component: {fileID: 8957505666240755547}
-  - component: {fileID: 221163120}
   m_Layer: 0
   m_Name: Wind Source
   m_TagString: Untagged
@@ -118,23 +117,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &221163120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2265588018911932738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5b281193c1db84285d88f59f3fb97b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rayPoint: {fileID: 1316395215}
-  _rayDistance: 0.2
-  _layerIndex:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &4712990447333886676
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +129,7 @@ GameObject:
   - component: {fileID: 4712990447333886679}
   - component: {fileID: 4712990447333886678}
   - component: {fileID: 4712990447333886677}
+  - component: {fileID: 1976405586}
   m_Layer: 0
   m_Name: Wind
   m_TagString: Untagged
@@ -267,3 +250,20 @@ AreaEffector2D:
   m_ForceTarget: 0
   m_Drag: 0
   m_AngularDrag: 0
+--- !u!114 &1976405586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4712990447333886676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5b281193c1db84285d88f59f3fb97b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rayPoint: {fileID: 1316395215}
+  _rayDistance: 0
+  _layerIndex:
+    serializedVersion: 2
+    m_Bits: 8
