@@ -137,12 +137,19 @@ public class CharacterController_Light : Entity
 		if(!_isRespawning) GetInputs();
 		if(_dash && _canDash) StartCoroutine(Dash());
 		_coyoteTimeCounter -= Time.deltaTime;
-		if(_horizontalMove != 0 && _rb.velocity.y == 0)
+		
+		if (_horizontalMove != 0)
 		{
+			//_moveParticles.Play();
+			_animator.SetBool("Walking", true);
 			if (!_audioSource.isPlaying)
 			{
 				_audioSource.Play();
 			}
+		}
+		else
+		{
+			_animator.SetBool("Walking", false);
 		}
 	}
 
@@ -160,15 +167,7 @@ public class CharacterController_Light : Entity
 	        _coyoteTimeCounter = 0f;
         }
         
-        if (_horizontalMove != 0 && _rb.velocity.y == 0)
-        {
-	        //_moveParticles.Play();
-	        _animator.SetBool("Walking", true);
-        }
-        else
-        {
-	        _animator.SetBool("Walking", false);
-        }
+        
 
         bool wasGrounded = _grounded;
 		_grounded = false;
