@@ -121,6 +121,8 @@ public class CharacterController_Light : Entity
 
 	private void Awake()
 	{
+		_dashTrail.emitting = false;
+
 		_sprite = GetComponent<SpriteRenderer>();
 		_coyoteTimeCounter = _coyoteTime;
         _checkpoint = transform.position;
