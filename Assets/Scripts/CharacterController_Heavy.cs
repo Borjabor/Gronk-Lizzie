@@ -33,7 +33,7 @@ public class CharacterController_Heavy : Entity
     private int _numberOfFlashes;
     [SerializeField] 
     private SpriteRenderer _bodyRenderer;
-	private Animator _animator;
+	public Animator _animator;
 
 	[Header("Audio")]
 	private AudioSource _audioSource;
@@ -126,7 +126,7 @@ public class CharacterController_Heavy : Entity
 		if (_horizontalMove != 0)
 		{
 			//_moveParticles.Play();
-			//_animator.SetBool("Walking", true);
+			_animator.SetBool("Walking", true);
 			if (!_audioSource.isPlaying)
 			{
 				_audioSource.Play();
@@ -134,7 +134,7 @@ public class CharacterController_Heavy : Entity
 		}
 		else
 		{
-			//_animator.SetBool("Walking", false);
+			_animator.SetBool("Walking", false);
 		}
 	}
 
