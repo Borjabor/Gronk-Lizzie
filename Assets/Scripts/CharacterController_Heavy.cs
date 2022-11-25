@@ -320,6 +320,7 @@ public class CharacterController_Heavy : Entity
 			{
 				foreach (var box in _poundBounceObjects)
 				{
+					CameraShake.Instance.ShakeCamera(3f, 0.1f);
 					box.Bounce();
 				}
 				
