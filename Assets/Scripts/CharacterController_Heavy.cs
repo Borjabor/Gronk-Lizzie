@@ -322,7 +322,7 @@ public class CharacterController_Heavy : Entity
 					box.Bounce();
 				}
 
-				//CameraShake.Instance.ShakeCamera(3f, 0.1f);
+				CameraShake.Instance.ShakeCamera(3f, 0.1f);
 				_audioSource.PlayOneShot(_landAudio);
 				
 			}
