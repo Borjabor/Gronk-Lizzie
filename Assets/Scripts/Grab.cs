@@ -13,6 +13,8 @@ public class Grab : MonoBehaviour
     private GameObject _grabbedObject;
     [SerializeField] private LayerMask _layerIndex;
 
+    public Animator _animator;
+
     private void Start()
     {
         //_layerIndex = LayerMask.NameToLayer("Objects");
