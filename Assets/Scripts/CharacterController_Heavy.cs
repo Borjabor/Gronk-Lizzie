@@ -35,18 +35,12 @@ public class CharacterController_Heavy : Entity
     private SpriteRenderer _bodyRenderer;
 	public Animator _animator;
 
-	[Header("Audio")]
+	[Header("Audio")] [Tooltip("Add walk audio to audiosource; Grab on grab script")]
 	private AudioSource _audioSource;
-	[SerializeField] 
-	private AudioClip _buffPickupAudio;
-	[SerializeField] 
-	private AudioClip _checkpointAudio;
 	[SerializeField]
 	private AudioClip _jumpAudio;
 	[SerializeField]
-    private AudioClip _landAudio;
-	[SerializeField]
-	private AudioClip _deathAudio;
+	private AudioClip _landAudio;
 
 
     [SerializeField]
@@ -62,8 +56,6 @@ public class CharacterController_Heavy : Entity
     [Header("Jump")]
 	[SerializeField]
 	private float _jumpForce = 30f;	// Amount of force added when the player jumps.
-	[SerializeField] 
-	private float _fallMultiplier = 2.5f; //not in use
 	//[SerializeField] 
 	private float _lowJumpMultiplier = 0.5f; //value becomes 4 when serialized, for some reason
 	[SerializeField] 
@@ -72,6 +64,9 @@ public class CharacterController_Heavy : Entity
 	[SerializeField] 
 	private float _jumpBufferTime = 0.2f;
 	private float _jumpBufferCounter;
+	[SerializeField]
+	private float _jumpCooldownTime = 1.5f;
+	private float _jumpCooldown;
 	private bool _jump = false;
 	[Tooltip("Drag Boxes here")]
 	[SerializeField] private Bounceable[] _poundBounceObjects;
@@ -122,6 +117,7 @@ public class CharacterController_Heavy : Entity
 	{
 		if(!_isRespawning) GetInputs();
 		_coyoteTimeCounter -= Time.deltaTime;
+		_jumpCooldown -= Time.deltaTime;
 		
 		if (_horizontalMove != 0)
 		{
@@ -140,7 +136,14 @@ public class CharacterController_Heavy : Entity
 
 	private void FixedUpdate()
 	{
-		if(_grounded) _lastGrounded = transform.position;
+		if (!_grounded && _rb.velocity.y < 0f)
+		{
+			_rb.gravityScale = 3f;
+		}
+		else
+		{
+			_rb.gravityScale = 1f;
+		}
 		if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f) _jump = true;
 
         Move(_horizontalMove * Time.fixedDeltaTime, _jump);
@@ -197,8 +200,9 @@ public class CharacterController_Heavy : Entity
 		
 		if (jump)
 		{
-			if( _coyoteTimeCounter > 0f && _jumpBufferCounter > 0f){
+			if( _coyoteTimeCounter > 0f && _jumpBufferCounter > 0f && _jumpCooldown <= 0f){
 				//_animator.SetTrigger("Jump");
+				_jumpCooldown = _jumpCooldownTime;
 				_audioSource.PlayOneShot(_jumpAudio);
 				_jumpBufferCounter = 0f;
 				_rb.velocity = Vector2.up * _jumpForce;
@@ -245,7 +249,6 @@ public class CharacterController_Heavy : Entity
 
 		if (other.gameObject.CompareTag("Checkpoint"))
 		{
-			_audioSource.PlayOneShot(_checkpointAudio);
 			_checkpoint = other.transform.position;
 		}
 		
@@ -257,22 +260,12 @@ public class CharacterController_Heavy : Entity
 		}*/
 	}
 
-	private void OnCollisionStay2D(Collision2D other)
+	/*private void OnCollisionStay2D(Collision2D other)
 	{
 		foreach(ContactPoint2D hitPos in other.contacts)
 		{
-            if(hitPos.normal.y <= 0  && other.gameObject.CompareTag("Enemy"))
-            {
-                StartCoroutine(Respawn());
-            }
 			
-			else if(hitPos.normal.y > 0  && other.gameObject.CompareTag("Enemy"))
-            {
-                _rb.velocity = Vector2.up * (_jumpForce/2);
-                _coyoteTimeCounter = _coyoteTime;
-            }
-			
-			/*if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
+			if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
 			{
                 _onFallingPlatform = true;
                 _onEdge = false;
@@ -288,9 +281,9 @@ public class CharacterController_Heavy : Entity
 				_onEdge = true;
 				_onFallingPlatform = false;
 				_coyoteTimeCounter = _coyoteTime;
-			}*/
+			}
         }
-	}
+	}*/
 
 	private void OnCollisionExit2D(Collision2D other)
 	{
@@ -323,6 +316,7 @@ public class CharacterController_Heavy : Entity
 					CameraShake.Instance.ShakeCamera(3f, 0.1f);
 					box.Bounce();
 				}
+				_audioSource.PlayOneShot(_landAudio);
 				
 			}
 			
@@ -341,45 +335,6 @@ public class CharacterController_Heavy : Entity
 			}*/
         }
 		
-	}
-
-	private IEnumerator Respawn()
-	{
-		_isRespawning = true;
-		_liveCount.LoseLife();
-		_rb.velocity = Vector2.zero;
-		_audioSource.PlayOneShot(_deathAudio);
-		_characterSprite.SetActive(false);
-		_deathParticles.Play();
-		yield return new WaitForSeconds(1.5f);
-		if(_liveCount._remainingLives <= 0)
-		{
-			_liveCount._remainingLives = 5;
-			transform.position = _checkpoint;
-		}
-		else
-		{
-			transform.position = _lastGrounded;
-		}
-		_characterSprite.SetActive(true);
-		_isRespawning = false;
-		
-        
-		StartCoroutine(Invulnerability());
-
-    }
-
-	private IEnumerator Invulnerability()
-	{
-		
-		for (int i = 0; i < _numberOfFlashes; i++)
-		{
-			_bodyRenderer.color = new Color(0.8f, 0.2f, 0.2f, 0.5f);
-			yield return new WaitForSeconds(_iFramesDuration / (_numberOfFlashes * 2));
-			_bodyRenderer.color = Color.white;
-			yield return new WaitForSeconds(_iFramesDuration / (_numberOfFlashes * 2));
-		}
-		Physics2D.IgnoreLayerCollision(0, 6, false);
 	}
 
 }
