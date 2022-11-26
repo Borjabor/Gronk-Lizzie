@@ -142,7 +142,7 @@ public class CharacterController_Light : Entity
 		
 		if (_horizontalMove != 0)
 		{
-			//_moveParticles.Play();
+			_moveParticles.Play();
 			_animator.SetBool("Walking", true);
 			if (!_audioSource.isPlaying)
 			{
@@ -151,6 +151,7 @@ public class CharacterController_Light : Entity
 		}
 		else
 		{
+			
 			_animator.SetBool("Walking", false);
 		}
 	}
@@ -226,7 +227,7 @@ public class CharacterController_Light : Entity
 				_grounded = false;
 				_onFallingPlatform = false;
 				_onEdge = false;
-                //_moveParticles.Stop();
+                _moveParticles.Stop();
                 //_jumpParticles.Play();
             }
 			
