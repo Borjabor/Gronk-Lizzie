@@ -35,18 +35,12 @@ public class CharacterController_Heavy : Entity
     private SpriteRenderer _bodyRenderer;
 	public Animator _animator;
 
-	[Header("Audio")]
+	[Header("Audio")] [Tooltip("Add walk audio to audiosource; Grab on grab script")]
 	private AudioSource _audioSource;
-	[SerializeField] 
-	private AudioClip _buffPickupAudio;
-	[SerializeField] 
-	private AudioClip _checkpointAudio;
 	[SerializeField]
 	private AudioClip _jumpAudio;
 	[SerializeField]
-    private AudioClip _landAudio;
-	[SerializeField]
-	private AudioClip _deathAudio;
+	private AudioClip _landAudio;
 
 
     [SerializeField]
@@ -62,8 +56,6 @@ public class CharacterController_Heavy : Entity
     [Header("Jump")]
 	[SerializeField]
 	private float _jumpForce = 30f;	// Amount of force added when the player jumps.
-	[SerializeField] 
-	private float _fallMultiplier = 2.5f; //not in use
 	//[SerializeField] 
 	private float _lowJumpMultiplier = 0.5f; //value becomes 4 when serialized, for some reason
 	[SerializeField] 
@@ -72,6 +64,9 @@ public class CharacterController_Heavy : Entity
 	[SerializeField] 
 	private float _jumpBufferTime = 0.2f;
 	private float _jumpBufferCounter;
+	[SerializeField]
+	private float _jumpCooldownTime = 1.5f;
+	private float _jumpCooldown;
 	private bool _jump = false;
 	[Tooltip("Drag Boxes here")]
 	[SerializeField] private Bounceable[] _poundBounceObjects;
@@ -99,7 +94,7 @@ public class CharacterController_Heavy : Entity
 
 	public UnityEvent OnLandEvent;
 
-	
+	private bool _isTransitioning;
 
 
 	[System.Serializable]
@@ -108,11 +103,12 @@ public class CharacterController_Heavy : Entity
 
 	private void Awake()
 	{
+		_isTransitioning = false;
 		_sprite = GetComponent<SpriteRenderer>();
 		_coyoteTimeCounter = _coyoteTime;
         _checkpoint = transform.position;
 		_audioSource = GetComponent<AudioSource>();
-		//_animator = GetComponentInChildren<Animator>();
+		_animator = GetComponentInChildren<Animator>();
 
         if (OnLandEvent == null) OnLandEvent = new UnityEvent();
 
@@ -122,6 +118,7 @@ public class CharacterController_Heavy : Entity
 	{
 		if(!_isRespawning) GetInputs();
 		_coyoteTimeCounter -= Time.deltaTime;
+		_jumpCooldown -= Time.deltaTime;
 		
 		if (_horizontalMove != 0)
 		{
@@ -132,7 +129,7 @@ public class CharacterController_Heavy : Entity
 				_audioSource.Play();
 			}
 		}
-		else
+		else if(!_isTransitioning)
 		{
 			_animator.SetBool("Walking", false);
 		}
@@ -140,10 +137,17 @@ public class CharacterController_Heavy : Entity
 
 	private void FixedUpdate()
 	{
-		if(_grounded) _lastGrounded = transform.position;
+		if (!_grounded && _rb.velocity.y < 0f)
+		{
+			_rb.gravityScale = 3f;
+		}
+		else
+		{
+			_rb.gravityScale = 1f;
+		}
 		if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f) _jump = true;
 
-        Move(_horizontalMove * Time.fixedDeltaTime, _jump);
+        if(!_isTransitioning) Move(_horizontalMove * Time.fixedDeltaTime, _jump);
         
         if (_rb.velocity.y > 0f && Input.GetKeyUp(KeyCode.W))
         {
@@ -197,8 +201,9 @@ public class CharacterController_Heavy : Entity
 		
 		if (jump)
 		{
-			if( _coyoteTimeCounter > 0f && _jumpBufferCounter > 0f){
+			if( _coyoteTimeCounter > 0f && _jumpBufferCounter > 0f && _jumpCooldown <= 0f){
 				//_animator.SetTrigger("Jump");
+				_jumpCooldown = _jumpCooldownTime;
 				_audioSource.PlayOneShot(_jumpAudio);
 				_jumpBufferCounter = 0f;
 				_rb.velocity = Vector2.up * _jumpForce;
@@ -216,7 +221,7 @@ public class CharacterController_Heavy : Entity
 
 	private void GetInputs()
 	{		
-        _horizontalMove = Input.GetAxisRaw("Horizontal1") * _moveSpeed;
+        _horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
         if (Input.GetKeyDown(KeyCode.W))
         {
 	        _jump = true;
@@ -245,8 +250,12 @@ public class CharacterController_Heavy : Entity
 
 		if (other.gameObject.CompareTag("Checkpoint"))
 		{
-			_audioSource.PlayOneShot(_checkpointAudio);
 			_checkpoint = other.transform.position;
+		}
+		
+		if (other.gameObject.GetComponent<LevelLoader>() && CharacterController_Light._isOnHeavy)
+		{
+			StartCoroutine(EndLevelWalk());
 		}
 		
 		/*if (other.gameObject.CompareTag("Collectible"))
@@ -257,22 +266,12 @@ public class CharacterController_Heavy : Entity
 		}*/
 	}
 
-	private void OnCollisionStay2D(Collision2D other)
+	/*private void OnCollisionStay2D(Collision2D other)
 	{
 		foreach(ContactPoint2D hitPos in other.contacts)
 		{
-            if(hitPos.normal.y <= 0  && other.gameObject.CompareTag("Enemy"))
-            {
-                StartCoroutine(Respawn());
-            }
 			
-			else if(hitPos.normal.y > 0  && other.gameObject.CompareTag("Enemy"))
-            {
-                _rb.velocity = Vector2.up * (_jumpForce/2);
-                _coyoteTimeCounter = _coyoteTime;
-            }
-			
-			/*if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
+			if(hitPos.normal.y >= 0  && other.gameObject.CompareTag("FallingPlatform"))
 			{
                 _onFallingPlatform = true;
                 _onEdge = false;
@@ -288,9 +287,9 @@ public class CharacterController_Heavy : Entity
 				_onEdge = true;
 				_onFallingPlatform = false;
 				_coyoteTimeCounter = _coyoteTime;
-			}*/
+			}
         }
-	}
+	}*/
 
 	private void OnCollisionExit2D(Collision2D other)
 	{
@@ -320,9 +319,11 @@ public class CharacterController_Heavy : Entity
 			{
 				foreach (var box in _poundBounceObjects)
 				{
-					CameraShake.Instance.ShakeCamera(3f, 0.1f);
 					box.Bounce();
 				}
+
+				//CameraShake.Instance.ShakeCamera(3f, 0.1f);
+				_audioSource.PlayOneShot(_landAudio);
 				
 			}
 			
@@ -342,44 +343,19 @@ public class CharacterController_Heavy : Entity
         }
 		
 	}
-
-	private IEnumerator Respawn()
+	
+	private IEnumerator EndLevelWalk()
 	{
-		_isRespawning = true;
-		_liveCount.LoseLife();
-		_rb.velocity = Vector2.zero;
-		_audioSource.PlayOneShot(_deathAudio);
-		_characterSprite.SetActive(false);
-		_deathParticles.Play();
-		yield return new WaitForSeconds(1.5f);
-		if(_liveCount._remainingLives <= 0)
+		_isTransitioning = true;
+		float time = 3f;
+		while (time > 0f)
 		{
-			_liveCount._remainingLives = 5;
-			transform.position = _checkpoint;
+			Vector2 targetVelocity = new Vector2(_moveSpeed * Time.fixedDeltaTime * 10f, _rb.velocity.y);
+			_rb.velocity = Vector2.SmoothDamp(_rb.velocity, targetVelocity, ref _velocity, _movementSmoothing);
+			_animator.SetBool("Walking", true);
+			time -= Time.fixedDeltaTime;
+			yield return new WaitForSeconds(.02f);
 		}
-		else
-		{
-			transform.position = _lastGrounded;
-		}
-		_characterSprite.SetActive(true);
-		_isRespawning = false;
-		
-        
-		StartCoroutine(Invulnerability());
-
-    }
-
-	private IEnumerator Invulnerability()
-	{
-		
-		for (int i = 0; i < _numberOfFlashes; i++)
-		{
-			_bodyRenderer.color = new Color(0.8f, 0.2f, 0.2f, 0.5f);
-			yield return new WaitForSeconds(_iFramesDuration / (_numberOfFlashes * 2));
-			_bodyRenderer.color = Color.white;
-			yield return new WaitForSeconds(_iFramesDuration / (_numberOfFlashes * 2));
-		}
-		Physics2D.IgnoreLayerCollision(0, 6, false);
 	}
 
 }

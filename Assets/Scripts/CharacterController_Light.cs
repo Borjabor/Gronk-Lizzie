@@ -37,12 +37,8 @@ public class CharacterController_Light : Entity
     private SpriteRenderer _bodyRenderer;
 	public Animator _animator;
 
-	//Audio
+	[Header("Audio")] [Tooltip("Add walk audio to audiosource")]
 	private AudioSource _audioSource;
-	[SerializeField] 
-	private AudioClip _buffPickupAudio;
-	[SerializeField] 
-	private AudioClip _checkpointAudio;
 	[SerializeField]
 	private AudioClip _jumpAudio;
 	[SerializeField]
@@ -64,8 +60,6 @@ public class CharacterController_Light : Entity
     [Header("Jump")]
 	[SerializeField]
 	private float _jumpForce = 30f;						// Amount of force added when the player jumps.
-	[SerializeField] 
-	private float _fallMultiplier = 2.5f; //not in use
 	//[SerializeField] 
 	private float _lowJumpMultiplier = 0.5f; //value becomes 4 when serialized, for some reason
 	[SerializeField] 
@@ -267,7 +261,6 @@ public class CharacterController_Light : Entity
 
 		if (other.gameObject.CompareTag("Checkpoint"))
 		{
-			_audioSource.PlayOneShot(_checkpointAudio);
 			_checkpoint = other.transform.position;
 		}
 		
@@ -416,7 +409,7 @@ public class CharacterController_Light : Entity
 	{
 		_isRespawning = true;
 		_rb.velocity = Vector2.zero;
-		//_audioSource.PlayOneShot(_deathAudio);
+		_audioSource.PlayOneShot(_deathAudio);
 		_sprite.enabled = false;
 		_tailSprite.SetActive(false);
 		//_deathParticles.Play();

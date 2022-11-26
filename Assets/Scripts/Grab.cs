@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class Grab : MonoBehaviour
 {
+    [Header("Audio")]
+    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioClip _grabAudio;
+
+    
+    
+    
     [SerializeField] private Transform _grabPoint;
     [SerializeField] private Transform _rayPoint;
     [SerializeField] private float _rayDistance;
@@ -17,6 +25,7 @@ public class Grab : MonoBehaviour
     {
         //_layerIndex = LayerMask.NameToLayer("Objects");
         _col = GetComponent<Collider2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -31,9 +40,9 @@ public class Grab : MonoBehaviour
             if (Input.GetKey(KeyCode.Space) && _grabbedObject == null)
             {
                 //Debug.Log($"grab");
+                _audioSource.PlayOneShot(_grabAudio);
                 _grabbedObject = hit.collider.gameObject;
                 //_grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
-                
                 var grabbedRb = _grabbedObject.GetComponent<Rigidbody2D>();
                 var grabbedCol = _grabbedObject.GetComponent<Collider2D>();
                 _grabbedObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -41,8 +50,7 @@ public class Grab : MonoBehaviour
                 _grabbedObject.transform.SetParent(transform);
                 Physics2D.IgnoreCollision(_col, grabbedCol, true);
                 FixedJoint2D fj = transform.gameObject.AddComponent(typeof(FixedJoint2D)) as FixedJoint2D;
-                var rb = _grabbedObject.GetComponent<Rigidbody2D>();
-                fj.connectedBody = rb;
+                fj.connectedBody = grabbedRb;
 
             }else if (Input.GetKeyUp(KeyCode.Space))
             {

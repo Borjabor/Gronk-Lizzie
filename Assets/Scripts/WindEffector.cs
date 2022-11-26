@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class WindEffector : MonoBehaviour
 {
-    [SerializeField] private Transform _rayPoint;
-    [SerializeField] private float _rayDistance;
-    [SerializeField] private LayerMask _layerIndex;
+    [SerializeField] 
+    private Transform _rayPoint;
+    [SerializeField] 
+    private LayerMask _layerIndex;
+    private float _rayDistance;
     private BoxCollider2D _collider;
     private Vector2 _originalArea;
 
+    private AudioSource _audioSource;
+
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _collider = GetComponent<BoxCollider2D>();
         _rayDistance = _collider.bounds.size.y;
         _originalArea = _collider.size;
@@ -21,6 +26,8 @@ public class WindEffector : MonoBehaviour
 
     private void Update()
     {
+        if(!_audioSource.isPlaying) _audioSource.Play();
+        
         RaycastHit2D hit = Physics2D.Raycast(_rayPoint.position, Vector2.up, _rayDistance, _layerIndex);
         
         if (hit.collider != null)
