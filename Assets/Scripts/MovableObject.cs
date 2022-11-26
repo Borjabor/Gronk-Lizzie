@@ -32,27 +32,23 @@ public class MovableObject : MonoBehaviour
         if (_isOpening)
         {
             transform.position = Vector2.MoveTowards(transform.position, _targetPos.transform.position, _openSpeed * Time.deltaTime);
-            //if(!_audioSource.isPlaying && transform.position.y != _targetPos.transform.position.y) _audioSource.Play();
+            if(!_audioSource.isPlaying && transform.position.y != _targetPos.transform.position.y) _audioSource.Play();
         }
         else
         {
             transform.position = Vector2.MoveTowards(transform.position, _startPos, _openSpeed * Time.deltaTime);
-            //if(!_audioSource.isPlaying && transform.position.y != _startPos.y) _audioSource.Play();
+            if(!_audioSource.isPlaying && transform.position.y != _startPos.y) _audioSource.Play();
         }
-        
-        //StartCoroutine(FadeCoroutine());
     }
 
     public void Activate()
     {
         _isOpening = true;
-        //transform.position = Vector2.MoveTowards(transform.position, _targetPos.transform.position, _openSpeed * Time.deltaTime);
     }
     
     public void Deactivate()
     {
         _isOpening = false;
-        //transform.position = Vector2.MoveTowards(transform.position, _startPos, _openSpeed * Time.deltaTime);
     }
 
 }

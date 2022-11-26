@@ -94,7 +94,7 @@ public class CharacterController_Heavy : Entity
 
 	public UnityEvent OnLandEvent;
 
-	
+	private bool _isTransitioning;
 
 
 	[System.Serializable]
@@ -103,11 +103,12 @@ public class CharacterController_Heavy : Entity
 
 	private void Awake()
 	{
+		_isTransitioning = false;
 		_sprite = GetComponent<SpriteRenderer>();
 		_coyoteTimeCounter = _coyoteTime;
         _checkpoint = transform.position;
 		_audioSource = GetComponent<AudioSource>();
-		//_animator = GetComponentInChildren<Animator>();
+		_animator = GetComponentInChildren<Animator>();
 
         if (OnLandEvent == null) OnLandEvent = new UnityEvent();
 
@@ -128,7 +129,7 @@ public class CharacterController_Heavy : Entity
 				_audioSource.Play();
 			}
 		}
-		else
+		else if(!_isTransitioning)
 		{
 			_animator.SetBool("Walking", false);
 		}
@@ -146,7 +147,7 @@ public class CharacterController_Heavy : Entity
 		}
 		if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f) _jump = true;
 
-        Move(_horizontalMove * Time.fixedDeltaTime, _jump);
+        if(!_isTransitioning) Move(_horizontalMove * Time.fixedDeltaTime, _jump);
         
         if (_rb.velocity.y > 0f && Input.GetKeyUp(KeyCode.W))
         {
@@ -252,6 +253,11 @@ public class CharacterController_Heavy : Entity
 			_checkpoint = other.transform.position;
 		}
 		
+		if (other.gameObject.GetComponent<LevelLoader>() && CharacterController_Light._isOnHeavy)
+		{
+			StartCoroutine(EndLevelWalk());
+		}
+		
 		/*if (other.gameObject.CompareTag("Collectible"))
 		{
 			Destroy(other.gameObject);
@@ -313,9 +319,10 @@ public class CharacterController_Heavy : Entity
 			{
 				foreach (var box in _poundBounceObjects)
 				{
-					CameraShake.Instance.ShakeCamera(3f, 0.1f);
 					box.Bounce();
 				}
+
+				//CameraShake.Instance.ShakeCamera(3f, 0.1f);
 				_audioSource.PlayOneShot(_landAudio);
 				
 			}
@@ -335,6 +342,20 @@ public class CharacterController_Heavy : Entity
 			}*/
         }
 		
+	}
+	
+	private IEnumerator EndLevelWalk()
+	{
+		_isTransitioning = true;
+		float time = 3f;
+		while (time > 0f)
+		{
+			Vector2 targetVelocity = new Vector2(_moveSpeed * Time.fixedDeltaTime * 10f, _rb.velocity.y);
+			_rb.velocity = Vector2.SmoothDamp(_rb.velocity, targetVelocity, ref _velocity, _movementSmoothing);
+			_animator.SetBool("Walking", true);
+			time -= Time.fixedDeltaTime;
+			yield return new WaitForSeconds(.02f);
+		}
 	}
 
 }

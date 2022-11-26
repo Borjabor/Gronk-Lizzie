@@ -16,7 +16,6 @@ public class ButtonScript : MonoBehaviour
     public Animator button;
     public Animator animator;
 
-    [SerializeField] ParticleSystem _fanParticles;
     private AudioSource _audioSource;
     private bool _hasPlayed = false;
     
