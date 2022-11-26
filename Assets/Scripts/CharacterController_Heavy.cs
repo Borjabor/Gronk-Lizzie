@@ -221,7 +221,7 @@ public class CharacterController_Heavy : Entity
 
 	private void GetInputs()
 	{		
-        _horizontalMove = Input.GetAxisRaw("Horizontal1") * _moveSpeed;
+        _horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
         if (Input.GetKeyDown(KeyCode.W))
         {
 	        _jump = true;

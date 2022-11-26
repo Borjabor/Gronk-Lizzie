@@ -15,12 +15,11 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         _pauseMenu.SetActive(false);
-        _levelLoader = GetComponentInChildren<LevelLoader>();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)) {
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace)) {
            _isPaused = !_isPaused;
            PauseGame();
         }
@@ -30,11 +29,13 @@ public class PauseMenu : MonoBehaviour
         if(_isPaused)
         {
             Time.timeScale = 0f;
+            Cursor.visible = true;
             _pauseMenu.SetActive(true);
         }
         else 
         {
             Time.timeScale = 1;
+            Cursor.visible = false;
             _pauseMenu.SetActive(false);
         }
     }
