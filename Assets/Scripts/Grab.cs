@@ -21,6 +21,8 @@ public class Grab : MonoBehaviour
     private GameObject _grabbedObject;
     [SerializeField] private LayerMask _layerIndex;
 
+    public Animator _animator;
+
     private void Start()
     {
         //_layerIndex = LayerMask.NameToLayer("Objects");
@@ -43,6 +45,8 @@ public class Grab : MonoBehaviour
                 _audioSource.PlayOneShot(_grabAudio);
                 _grabbedObject = hit.collider.gameObject;
                 //_grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                _animator.SetBool("Grab", true);
+
                 var grabbedRb = _grabbedObject.GetComponent<Rigidbody2D>();
                 var grabbedCol = _grabbedObject.GetComponent<Collider2D>();
                 _grabbedObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -54,6 +58,7 @@ public class Grab : MonoBehaviour
 
             }else if (Input.GetKeyUp(KeyCode.Space))
             {
+                _animator.SetBool("Grab", false);
                 //_grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
                 _grabbedObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                 var grabbed = _grabbedObject.GetComponent<Collider2D>();
