@@ -410,6 +410,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Tileset001_14
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 42
+        width: 35
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64225e779c2e575498f7710daf9f7ecc
+      internalID: 535437968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset001_15
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 42
+        width: 35
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c88a53b00176b8c4b96e627e78aef4fd
+      internalID: 743191132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset001_16
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 47
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa7c460d63db17344bf2862a8c9aee87
+      internalID: -154985288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -429,14 +492,17 @@ TextureImporter:
       Tileset001_4: 1292967488
       Tileset001_5: -1153150553
       Tileset001_9: -2053327655
+      Tileset001_15: 743191132
       Tileset001_1: 1481709618
       Tileset001_6: -1369939016
       Tileset001_0: 1714678699
       Tileset001_7: 1697186530
       Tileset001_13: 114042229
+      Tileset001_16: -154985288
       Tileset001_3: -1474747763
       Tileset001_10: -483607164
       Tileset001_2: -20591785
+      Tileset001_14: 535437968
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
