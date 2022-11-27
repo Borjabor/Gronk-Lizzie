@@ -9,6 +9,7 @@ public class LeverScript : MonoBehaviour
     private bool _isOn = false;
 
     public Animator _animator;
+    public Animator _LeverAnimator;
 
     private AudioSource _audioSource;
     [SerializeField]
@@ -28,6 +29,7 @@ public class LeverScript : MonoBehaviour
         {
             _movableObject.Activate();
             _animator.SetBool("DoorActive", true);
+            _LeverAnimator.SetBool("LeverActive", true);
             _audioSource.PlayOneShot(_onAudio);
             _isOn = true;
         }
@@ -35,6 +37,7 @@ public class LeverScript : MonoBehaviour
         {
             _movableObject.Deactivate();
             _animator.SetBool("DoorActive", false);
+            _LeverAnimator.SetBool("LeverActive", false);
             _audioSource.PlayOneShot(_offAudio);
             _isOn = false;
         }
