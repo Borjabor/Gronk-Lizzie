@@ -29,7 +29,7 @@ public class TransitionTrigger : MonoBehaviour
 
     private void playAnimation()
     {
-        //_animator.SetBool("Together", true);
+        _animator.SetBool("Together", true);
         _animator.SetTrigger("PlayerOn");
     }
 

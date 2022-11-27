@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movableObject: {fileID: 2359334382032053624}
-  _animator: {fileID: 4687665098234322203}
+  _animator: {fileID: 8105745685619569858}
 --- !u!1 &2172366712654060393
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6087859660371376956}
   - component: {fileID: 1729842813469795571}
-  - component: {fileID: 4687665098234322203}
+  - component: {fileID: 8105745685619569858}
   m_Layer: 0
   m_Name: Level Transition
   m_TagString: Untagged
@@ -420,7 +420,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4687665098234322203
+--- !u!95 &8105745685619569858
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -430,7 +430,7 @@ Animator:
   m_GameObject: {fileID: 9070905205860245761}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 58725271bc9bbb945832b1067ae2b8e4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 89727bc3316c884489a9115c0585e200, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

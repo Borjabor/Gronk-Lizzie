@@ -359,19 +359,18 @@ MonoBehaviour:
   _iFramesDuration: 0
   _numberOfFlashes: 0
   _bodyRenderer: {fileID: 0}
-  _buffPickupAudio: {fileID: 0}
-  _checkpointAudio: {fileID: 0}
+  _animator: {fileID: 855010795}
   _jumpAudio: {fileID: 0}
   _landAudio: {fileID: 0}
-  _deathAudio: {fileID: 0}
   _moveSpeed: 20
   _knockbackX: 25
   _knockbackY: 5
   _jumpForce: 12
-  _fallMultiplier: 2.5
   _coyoteTime: 0.2
   _jumpBufferTime: 0.2
+  _jumpCooldownTime: 1.5
   _poundBounceObjects:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -518,12 +517,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f122e38dbe399649bf0824fef3f6b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _grabAudio: {fileID: 0}
   _grabPoint: {fileID: 7257562189513763441}
   _rayPoint: {fileID: 8350301520406217554}
   _rayDistance: 0.2
   _layerIndex:
     serializedVersion: 2
     m_Bits: 256
+  _animator: {fileID: 855010795}
 --- !u!95 &855010795
 Animator:
   serializedVersion: 4
