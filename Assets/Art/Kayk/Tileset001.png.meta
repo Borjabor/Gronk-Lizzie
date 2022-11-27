@@ -708,9 +708,9 @@ TextureImporter:
       name: Tileset001_28
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 67
-        width: 14
+        width: 6
         height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -729,9 +729,9 @@ TextureImporter:
       name: Tileset001_29
       rect:
         serializedVersion: 2
-        x: 32
+        x: 34
         y: 78
-        width: 14
+        width: 10
         height: 5
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
