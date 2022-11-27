@@ -746,6 +746,132 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Tileset001_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 85
+        width: 16
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 112e3426a3a3f9d4590c53d2cdace289
+      internalID: 1300705930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset001_31
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 104
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8229df2d93a994b4b94379d8b377a6a5
+      internalID: 1639447573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset001_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 220
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0efe69bfafc967a45896fd4140b75b14
+      internalID: -1320032017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset001_33
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 220
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4600b93d45e03f24eb63058ed9321462
+      internalID: -880820101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset001_34
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 220
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cfc2dc890e25284d9104648ae457851
+      internalID: -566272841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset001_35
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 220
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 748e5b199e5255a4daf7d2b46be72c39
+      internalID: 1552891277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -759,6 +885,7 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: ba8c8aca889b3014c9a491a35f53a351, type: 3}
       name: _Emission
     nameFileIdTable:
+      Tileset001_30: 1300705930
       Tileset001_26: 1942160502
       Tileset001_11: -1534327588
       Tileset001_8: -2075993079
@@ -770,6 +897,8 @@ TextureImporter:
       Tileset001_15: 743191132
       Tileset001_29: 556845675
       Tileset001_25: 1534305163
+      Tileset001_31: 1639447573
+      Tileset001_34: -566272841
       Tileset001_19: 945351154
       Tileset001_1: 1481709618
       Tileset001_6: -1369939016
@@ -779,10 +908,13 @@ TextureImporter:
       Tileset001_24: -1099241695
       Tileset001_27: -1248782437
       Tileset001_0: 1714678699
+      Tileset001_33: -880820101
       Tileset001_7: 1697186530
       Tileset001_20: -1057681299
       Tileset001_21: 338137856
+      Tileset001_32: -1320032017
       Tileset001_28: -2061844364
+      Tileset001_35: 1552891277
       Tileset001_13: 114042229
       Tileset001_16: -154985288
       Tileset001_3: -1474747763
