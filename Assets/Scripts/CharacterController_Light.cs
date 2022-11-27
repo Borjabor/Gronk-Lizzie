@@ -133,6 +133,7 @@ public class CharacterController_Light : Entity
 		if(!_isRespawning) GetInputs();
 		if(_dash && _canDash) StartCoroutine(Dash());
 		_coyoteTimeCounter -= Time.deltaTime;
+		_rb.gravityScale = _isOnHeavy ? 3 : 1;
 		
 		if (_horizontalMove != 0)
 		{
