@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Eduardo/Levels/Level_01.unity
     guid: 4c077475b8a40964195f320365c274cc
+  - enabled: 1
+    path: Assets/Scenes/EndScreen.unity
+    guid: fa787cda8c9f91947972be6067230b0c
   m_configObjects: {}

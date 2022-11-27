@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683002402966030205}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -1.36, z: 0.43916595}
+  m_LocalPosition: {x: -15.105, y: 4.16, z: 0.43916595}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -265,8 +265,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetPos: {fileID: 8477060783742993529}
   _movableObject: {fileID: 0}
-  button: {fileID: 3062763854374829793}
-  animator: {fileID: 0}
+  button: {fileID: 0}
+  animator: {fileID: 6644617486199566837}
 --- !u!61 &151117662
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -485,7 +485,6 @@ GameObject:
   - component: {fileID: 1463688214860450002}
   - component: {fileID: 1129088517}
   - component: {fileID: 1129088520}
-  - component: {fileID: 3062763854374829793}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -615,23 +614,3 @@ PolygonCollider2D:
       - {x: 1.2899475, y: -0.14674282}
       - {x: 1.2897263, y: 0.0074977875}
       - {x: 1.2233734, y: 0.1469593}
---- !u!95 &3062763854374829793
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8477060783742993529}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f0b1a56056dff5a4f8d6fb1d30f47697, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
