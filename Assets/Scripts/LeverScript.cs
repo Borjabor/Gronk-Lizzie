@@ -33,6 +33,7 @@ public class LeverScript : MonoBehaviour
             _animator.SetBool("DoorActive", true);
             _LeverAnimator.SetBool("LeverActive", true);
             _audioSource.PlayOneShot(_onAudio);
+            _glowparticles.Play();
             _isOn = true;
         }
         else
@@ -41,12 +42,9 @@ public class LeverScript : MonoBehaviour
             _animator.SetBool("DoorActive", false);
             _LeverAnimator.SetBool("LeverActive", false);
             _audioSource.PlayOneShot(_offAudio);
+            _glowparticles.Stop();
             _isOn = false;
         }
     }
 
-    public void Particles()
-    {
-
-    }
 }
