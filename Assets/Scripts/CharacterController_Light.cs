@@ -414,7 +414,7 @@ public class CharacterController_Light : Entity
 		_audioSource.PlayOneShot(_deathAudio);
 		_sprite.enabled = false;
 		_tailSprite.SetActive(false);
-		//_deathParticles.Play();
+		_deathParticles.Play();
 		yield return new WaitForSeconds(1.5f);
 		transform.position = _checkpoint;
 		_sprite.enabled = true;
