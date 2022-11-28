@@ -16,6 +16,8 @@ public class LeverScript : MonoBehaviour
     private AudioClip _onAudio;
     [SerializeField]
     private AudioClip _offAudio;
+    [SerializeField]
+    private ParticleSystem _glowparticles;
 
 
     private void Awake()
@@ -42,5 +44,9 @@ public class LeverScript : MonoBehaviour
             _isOn = false;
         }
     }
-    
+
+    public void Particles()
+    {
+
+    }
 }
