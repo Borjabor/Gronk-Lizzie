@@ -30,6 +30,7 @@ public class ButtonScript : MonoBehaviour
         if (collision.transform.tag == "Heavy" || collision.transform.tag == "Objects")
         {
             //transform.Translate(0, -0.01f, 0);
+            animator.SetBool("ButtonActive", true);
             transform.position = Vector2.MoveTowards(transform.position, _targetPos.transform.position, Time.deltaTime);
             moveBack = false;
             if (!_hasPlayed && transform.position.y == _targetPos.transform.position.y)
@@ -48,7 +49,7 @@ public class ButtonScript : MonoBehaviour
         {
             collision.transform.parent = transform;
         }
-        //button.SetBool("Button_State", false);
+        animator.SetBool("ButtonActive", false);
         moveBack = true;
         collision.transform.parent = null;
         _hasPlayed = false;
