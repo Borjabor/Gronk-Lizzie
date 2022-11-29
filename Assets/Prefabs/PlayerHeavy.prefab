@@ -360,8 +360,8 @@ MonoBehaviour:
   _numberOfFlashes: 0
   _bodyRenderer: {fileID: 0}
   _animator: {fileID: 855010795}
-  _jumpAudio: {fileID: 0}
-  _landAudio: {fileID: 0}
+  _jumpAudio: {fileID: 8300000, guid: 2428b836135dec345ba1ba3826d6d82c, type: 3}
+  _landAudio: {fileID: 8300000, guid: cf8fdd2cc12a155439cc4c4905de2805, type: 3}
   _moveSpeed: 20
   _knockbackX: 25
   _knockbackY: 5
@@ -393,9 +393,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: b54d51a03149a004281a583efe371eb2, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.117
   m_Pitch: 1
   Loop: 0
   Mute: 0
