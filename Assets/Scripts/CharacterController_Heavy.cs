@@ -42,8 +42,7 @@ public class CharacterController_Heavy : Entity
 	[SerializeField]
 	private AudioClip _landAudio;
 
-
-    [SerializeField]
+	[SerializeField]
     private float _moveSpeed = 60f;
 	private float _horizontalMove = 0f;
 
