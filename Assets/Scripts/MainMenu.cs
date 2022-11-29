@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame() {
         CollectiblesCounter.TotalPoints = 0;
         Cursor.visible = false;
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         Time.timeScale = 1;
     }
 
