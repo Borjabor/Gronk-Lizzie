@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelLoader: {fileID: 0}
-  _pauseMenu: {fileID: 1187451298757955760}
+  _pauseMenu: {fileID: 1187451298768179265}
 --- !u!1 &1187451298768179265
 GameObject:
   m_ObjectHideFlags: 0
