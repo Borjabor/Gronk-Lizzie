@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Eduardo/Testing.unity
     guid: 5a0b7bb9999b1f845adf36faa8cfbc72
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 5f789c12f7520db4498a08f9bf08c8ca
+  - enabled: 1
     path: Assets/Scenes/Eduardo/Levels/Level_01.unity
     guid: 4c077475b8a40964195f320365c274cc
   - enabled: 1

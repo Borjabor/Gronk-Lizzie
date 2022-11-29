@@ -37,6 +37,12 @@ public class TransitionTrigger : MonoBehaviour
         {
             _movableObject.Activate();
             playAnimation();
+
+            if (!_hasPlayed)
+            {
+                _audioSource.Play();
+                _hasPlayed = true;
+            }
         }
     }
 
