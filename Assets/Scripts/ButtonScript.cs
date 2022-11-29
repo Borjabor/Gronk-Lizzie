@@ -30,14 +30,15 @@ public class ButtonScript : MonoBehaviour
         if (collision.transform.tag == "Heavy" || collision.transform.tag == "Objects")
         {
             //transform.Translate(0, -0.01f, 0);
-            animator.SetBool("ButtonActive", true);
-            transform.position = Vector2.MoveTowards(transform.position, _targetPos.transform.position, Time.deltaTime);
-            moveBack = false;
             if (!_hasPlayed && transform.position.y == _targetPos.transform.position.y)
             {
                 _audioSource.Play();
                 _hasPlayed = true;
             }
+            animator.SetBool("ButtonActive", true);
+            transform.position = Vector2.MoveTowards(transform.position, _targetPos.transform.position, Time.deltaTime);
+            moveBack = false;
+
             _movableObject.Activate();
         }
     }
