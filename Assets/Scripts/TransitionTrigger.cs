@@ -8,6 +8,13 @@ public class TransitionTrigger : MonoBehaviour
     [SerializeField] private MovableObject _movableObject;
 
     public Animator _animator;
+    private AudioSource _audioSource;
+    private bool _hasPlayed = false;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,6 +22,12 @@ public class TransitionTrigger : MonoBehaviour
         {
             _movableObject.Activate();
             playAnimation();
+
+            if (!_hasPlayed)
+            {
+                _audioSource.Play();
+                _hasPlayed = true;
+            }
         }
     }
     private void OnTriggerStay2D(Collider2D other)
